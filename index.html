@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfaite BEYA KITENGE | Portfolio Interactif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --bg: #03050a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text: #ffffff;
+            --text-dim: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text); font-family: 'Poppins', sans-serif; line-height: 1.6; }
+
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 8%; position: fixed; width: 100%; top: 0;
+            background: rgba(3, 5, 10, 0.9); backdrop-filter: blur(20px); z-index: 1000;
+            border-bottom: 1px solid var(--border);
+        }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; color: var(--primary); letter-spacing: 1px; }
+
+        section { padding: 120px 8% 60px; }
+        .title-center { text-align: center; margin-bottom: 60px; font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; }
+        .title-center span { color: var(--primary); }
+
+        /* Grille Bento */
+        .bento-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 20px; max-width: 1200px; margin: 0 auto; 
+        }
+
+        .story-item { 
+            background: var(--card-bg); border-radius: 20px; overflow: hidden; 
+            border: 1px solid var(--border); position: relative; transition: 0.5s ease; cursor: pointer;
+        }
+
+        .item-large { grid-column: span 2; grid-row: span 2; }
+        .item-medium { grid-column: span 2; grid-row: span 1; }
+
+        .story-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s; opacity: 0.6; }
+        .story-item:hover img { transform: scale(1.05); opacity: 0.9; border: 2px solid var(--primary); }
+
+        .overlay-title { 
+            position: absolute; bottom: 20px; left: 20px; z-index: 2;
+            font-family: 'Space Grotesk'; font-size: 1.2rem; color: var(--primary);
+            background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 10px;
+        }
+
+        /* Styles de la fenêtre modale (Description) */
+        .modal {
+            display: none; position: fixed; z-index: 2000; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.9);
+            backdrop-filter: blur(10px); align-items: center; justify-content: center;
+        }
+
+        .modal-content {
+            background: #111420; padding: 40px; border-radius: 30px;
+            max-width: 600px; width: 90%; border: 1px solid var(--primary);
+            text-align: center; position: relative; animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .close-btn { position: absolute; top: 20px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+        .modal-h3 { color: var(--primary); font-family: 'Space Grotesk'; margin-bottom: 20px; font-size: 1.8rem; }
+        .modal-text { color: #fff; text-align: justify; font-size: 1rem; line-height: 1.8; }
+
+        /* Tableau */
+        .table-wrap { overflow-x: auto; background: rgba(255,255,255,0.01); border-radius: 15px; padding: 25px; border: 1px solid var(--border); max-width: 1100px; margin: 0 auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 800px; }
+        th { color: var(--primary); padding: 15px; text-align: left; border-bottom: 2px solid var(--primary); font-size: 0.75rem; text-transform: uppercase; }
+        td { padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 0.85rem; color: var(--text-dim); }
+        .status-badge { padding: 4px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; }
+        .maitrise { border: 1px solid var(--primary); color: var(--primary); }
+
+        footer { text-align: center; padding: 60px; background: #010205; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">PARFAITE.B.K</div>
+        <div style="color: var(--text-dim); font-size: 0.7rem;">INGÉNIORAT CIVIL EN DEVENIR</div>
+    </nav>
+
+    <section>
+        <h2 class="title-center">Mon Évolution <span>(Cliquez pour lire)</span></h2>
+        
+        <div class="bento-grid">
+            <div class="story-item item-large" onclick="openModal('expertise')">
+                <img src="photo_2026-01-21_05-09-12.jpg" alt="Expertise">
+                <div class="overlay-title">01. La Maîtrise Technique</div>
+            </div>
+
+            <div class="story-item item-medium" onclick="openModal('vision')">
+                <img src="photo_2026-01-21_05-09-46.jpg" alt="Vision">
+                <div class="overlay-title">02. L'Aspiration au Génie Civil</div>
+            </div>
+
+            <div class="story-item" onclick="openModal('racines')">
+                <img src="photo_2026-01-21_05-09-29.jpg" alt="Racines">
+                <div class="overlay-title">03. Les Racines</div>
+            </div>
+
+            <div class="story-item" onclick="openModal('heritage')">
+                <img src="photo_2026-01-21_05-11-03.jpg" alt="Héritage">
+                <div class="overlay-title">04. La Force de l'Héritage</div>
+            </div>
+        </div>
+    </section>
+
+    <div id="descModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" class="modal-h3"></h3>
+            <div id="modalDescription" class="modal-text"></div>
+        </div>
+    </div>
+
+    <section style="background: #05070f;">
+        <h2 class="title-center">Tableau de <span>Bord (16 Modules)</span></h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>N°</th><th>Module</th><th>Détails</th><th>Statut</th></tr>
+                </thead>
+                <tbody id="skillsTable">
+                    </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>PARFAITE BEYA KITENGE © 2026 | Fille de Jean-Pierre & Béatrice</p>
+    </footer>
+
+    <script>
+        // Données des descriptions (7 lignes chacune)
+        const descriptions = {
+            expertise: {
+                title: "La Maîtrise Technique",
+                text: "Aujourd'hui, l'innocence a laissé place à une détermination rigoureuse et une expertise certifiée.<br>En tant que détentrice d'un diplôme d'État en électricité, je maîtrise désormais les flux énergétiques.<br>Ce portrait reflète la maturité d'une jeune femme prête à affronter les défis technologiques modernes.<br>Mes études m'ont appris que la précision est la clé de toute installation réussie et sécurisée.<br>Je ne regarde plus le monde comme un simple spectateur, mais comme une actrice du changement.<br>Chaque schéma électrique que je conçois est une preuve de mon engagement envers l'excellence.<br>C'est l'image d'une professionnelle qui sait où elle va et comment transformer ses rêves en réalité."
+            },
+            vision: {
+                title: "L'Aspiration au Génie Civil",
+                text: "Ici, on perçoit mon regard tourné vers l'horizon, vers les grandes infrastructures de demain.<br>Mon diplôme en électricité n'est qu'un premier pas vers mon but ultime : l'ingéniorat civil.<br>Je souhaite combiner la puissance de l'énergie avec la solidité des constructions architecturales.<br>La planification, la gestion de projet et la vision structurelle sont mes priorités quotidiennes.<br>Cette photo capture l'instant où l'ambition rencontre la préparation académique et personnelle.<br>Je me prépare à bâtir des ponts, non seulement physiques, mais aussi entre les différentes technologies.<br>Mon parcours est une ligne droite tracée vers la réussite au service de ma communauté."
+            },
+            racines: {
+                title: "Les Racines de la Curiosité",
+                text: "Cette première image capture l'innocence de mes trois ans, une période charnière.<br>C’est dans ce regard d’enfant que se cachait déjà une soif immense de comprendre le monde.<br>Élevée au sein d’une famille nombreuse, j’ai appris très tôt la valeur du partage et de l’observation.<br>Chaque objet autour de moi représentait un mystère mécanique ou physique à résoudre un jour.<br>On voit ici la petite Parfaite, curieuse, ne se doutant pas encore de son destin technique.<br>Cette fondation familiale solide est le socle sur lequel j'ai bâti ma confiance actuelle.<br>C’est ici que tout commence, dans la simplicité et le bonheur d'apprendre chaque jour davantage."
+            },
+            heritage: {
+                title: "La Force de l'Héritage",
+                text: "Enfin, ce dernier portrait rend hommage à mon identité profonde de quatrième d'une fratrie de six.<br>Je porte en moi les valeurs de solidarité inculquées par Jean-Pierre et Béatrice, mes parents.<br>C’est cette force collective qui me permet de rester humble tout en visant l'excellence absolue.<br>Je suis fière de mon parcours, de la maternelle jusqu'aux bancs des humanités techniques réussies.<br>L'avenir appartient à ceux qui travaillent avec passion, et je suis prête pour cette grande aventure.<br>Ce portfolio est le témoin visuel de ma transition d'une petite fille rêveuse à une experte bâtisseuse.<br>L'ingénierie n'est pas qu'un métier pour moi, c'est ma façon de contribuer au futur de notre nation."
+            }
+        };
+
+        function openModal(key) {
+            document.getElementById('modalTitle').innerText = descriptions[key].title;
+            document.getElementById('modalDescription').innerHTML = descriptions[key].text;
+            document.getElementById('descModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('descModal').style.display = 'none';
+        }
+
+        // Remplissage du tableau de 16 lignes
+        const skills = [
+            ["01", "Électricité Résidentielle", "Câblage complet de bâtiments", "Maîtrisé"],
+            ["02", "Électricité Industrielle", "Démarrage de moteurs triphasés", "Maîtrisé"],
+            ["03", "Lecture de Plans", "Schémas unifilaires et multifilaires", "Expert"],
+            ["04", "Sécurité Chantier", "Normes EPI et protection circuits", "Priorité"],
+            ["05", "Systèmes Solaires", "Installation panneaux photovoltaïques", "Intermédiaire"],
+            ["06", "Mathématiques Tech", "Calculs de sections et de charges", "Maîtrisé"],
+            ["07", "Physique Appliquée", "Lois de Kirchhoff et d'Ohm", "Maîtrisé"],
+            ["08", "Génie Civil", "Initiation aux structures béton", "En cours"],
+            ["09", "AutoCAD / Design", "Dessin technique assisté", "Apprenant"],
+            ["10", "Communication", "Rapports techniques de fin de travaux", "Expert"],
+            ["11", "Management", "Coordination d'équipes de travail", "Intermédiaire"],
+            ["12", "Français Prof.", "Rédaction et présentation orale", "Expert"],
+            ["13", "Analyse Logique", "Résolution de pannes complexes", "Maîtrisé"],
+            ["14", "Informatique", "Outils bureautiques et recherche", "Maîtrisé"],
+            ["15", "Éthique Prof.", "Respect des délais et des normes", "Certifié"],
+            ["16", "Vision 2026", "Obtention Grade Ingénieur Civil", "Objectif"]
+        ];
+
+        const tbody = document.getElementById('skillsTable');
+        skills.forEach(skill => {
+            tbody.innerHTML += `<tr><td>${skill[0]}</td><td>${skill[1]}</td><td>${skill[2]}</td><td><span class="status-badge maitrise">${skill[3]}</span></td></tr>`;
+        });
+
+        // Fermer si on clique à l'extérieur
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('descModal')) closeModal();
+        }
+    </script>
+</body>
+</html>
